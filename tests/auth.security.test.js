@@ -4,7 +4,7 @@
 //     buscarPorEmail: jest.fn().mockImplementation(email => {
 //       if (email === 'admin@example.com') {
 // Placeholder skipped test to keep Jest happy while the real tests are commented.
-test.skip('auth.security placeholder', () => {});
+test.skip("auth.security placeholder", () => {});
 
 // const request = require('supertest');
 // jest.mock('../src/infrastructure/repositories/MssqlUsuarioRepository', () => {

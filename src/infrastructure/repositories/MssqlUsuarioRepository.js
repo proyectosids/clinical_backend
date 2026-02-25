@@ -27,14 +27,25 @@ class MssqlUsuarioRepository extends UsuarioRepository {
         VALUES (@id_rol, @nombre, @apellido, @curp, @fecha_nacimiento, @direccion, @email, @telefono, @password_hash, @foto_url, @status);
         SELECT SCOPE_IDENTITY() AS id_usuario;
       `);
-      const id_usuario = insertResult.recordset[0] ? insertResult.recordset[0].id_usuario : null;
+      const id_usuario = insertResult.recordset[0]
+        ? insertResult.recordset[0].id_usuario
+        : null;
 
       // Insertar especialidades si vienen
-      if (Array.isArray(usuario.especialidades) && usuario.especialidades.length > 0 && id_usuario) {
+      if (
+        Array.isArray(usuario.especialidades) &&
+        usuario.especialidades.length > 0 &&
+        id_usuario
+      ) {
         for (let i = 0; i < usuario.especialidades.length; i++) {
           const idEsp = usuario.especialidades[i];
-          await transaction.request().input(`id_usuario`, id_usuario).input(`id_especialidad`, idEsp)
-            .query(`INSERT INTO usuarioEspecialidad (id_usuario, id_especialidad) VALUES (@id_usuario, @id_especialidad)`);
+          await transaction
+            .request()
+            .input(`id_usuario`, id_usuario)
+            .input(`id_especialidad`, idEsp)
+            .query(
+              `INSERT INTO usuarioEspecialidad (id_usuario, id_especialidad) VALUES (@id_usuario, @id_especialidad)`,
+            );
         }
       }
 
@@ -57,7 +68,7 @@ class MssqlUsuarioRepository extends UsuarioRepository {
          JOIN Rol r ON u.id_rol = r.id_rol
          LEFT JOIN usuarioEspecialidad ue ON ue.id_usuario = u.id_usuario
          LEFT JOIN Especialidad e ON e.id_especialidad = ue.id_especialidad
-         WHERE u.status = @status`
+         WHERE u.status = @status`,
       );
     const rows = result.recordset || [];
     // Agrupar especialidades por usuario
@@ -89,15 +100,13 @@ class MssqlUsuarioRepository extends UsuarioRepository {
 
   async findAll() {
     const pool = await getPool();
-    const result = await pool
-      .request()
-      .query(
-        `SELECT u.*, r.nombre_rol, e.id_especialidad, e.nombre_esp
+    const result = await pool.request().query(
+      `SELECT u.*, r.id_rol, r.nombre_rol, r.descripcion AS rol_descripcion, e.id_especialidad, e.nombre_esp, e.descripcion AS esp_descripcion
          FROM Usuario u
          JOIN Rol r ON u.id_rol = r.id_rol
          LEFT JOIN usuarioEspecialidad ue ON ue.id_usuario = u.id_usuario
-         LEFT JOIN Especialidad e ON e.id_especialidad = ue.id_especialidad`
-      );
+         LEFT JOIN Especialidad e ON e.id_especialidad = ue.id_especialidad`,
+    );
     const rows = result.recordset || [];
     const map = {};
     rows.forEach((r) => {
@@ -105,7 +114,6 @@ class MssqlUsuarioRepository extends UsuarioRepository {
       if (!map[id]) {
         map[id] = {
           id_usuario: r.id_usuario,
-          id_rol: r.id_rol,
           nombre: r.nombre,
           apellido: r.apellido,
           curp: r.curp,
@@ -116,11 +124,23 @@ class MssqlUsuarioRepository extends UsuarioRepository {
           foto_url: r.foto_url,
           status: r.status,
           fecha_registro: r.fecha_registro,
-          rol: r.nombre_rol || null,
+          rol: {
+            id_rol: r.id_rol,
+            nombre_rol: r.nombre_rol,
+            descripcion: r.rol_descripcion,
+          },
           especialidades: [],
+          bio: r.bio || null,
+          redes: r.redes ? JSON.parse(r.redes) : null,
         };
       }
-      if (r.nombre_esp) map[id].especialidades.push(r.nombre_esp);
+      if (r.id_especialidad && r.nombre_esp) {
+        map[id].especialidades.push({
+          id_especialidad: r.id_especialidad,
+          nombre_esp: r.nombre_esp,
+          descripcion: r.esp_descripcion,
+        });
+      }
     });
     return Object.values(map);
   }
@@ -136,7 +156,7 @@ class MssqlUsuarioRepository extends UsuarioRepository {
          JOIN Rol r ON u.id_rol = r.id_rol
          LEFT JOIN usuarioEspecialidad ue ON ue.id_usuario = u.id_usuario
          LEFT JOIN Especialidad e ON e.id_especialidad = ue.id_especialidad
-         WHERE u.id_usuario = @id_usuario`
+         WHERE u.id_usuario = @id_usuario`,
       );
     const rows = result.recordset || [];
     if (rows.length === 0) return null;
@@ -155,11 +175,23 @@ class MssqlUsuarioRepository extends UsuarioRepository {
       foto_url: base.foto_url,
       status: base.status,
       fecha_registro: base.fecha_registro,
-      rol: base.nombre_rol || null,
+      rol: {
+        id_rol: base.id_rol,
+        nombre_rol: base.nombre_rol,
+        descripcion: base.rol_descripcion,
+      },
       especialidades: [],
+      bio: base.bio || null,
+      redes: base.redes ? JSON.parse(base.redes) : null,
     };
     rows.forEach((r) => {
-      if (r.nombre_esp) usuario.especialidades.push(r.nombre_esp);
+      if (r.id_especialidad && r.nombre_esp) {
+        usuario.especialidades.push({
+          id_especialidad: r.id_especialidad,
+          nombre_esp: r.nombre_esp,
+          descripcion: r.esp_descripcion,
+        });
+      }
     });
     return usuario;
   }
@@ -203,7 +235,7 @@ class MssqlUsuarioRepository extends UsuarioRepository {
       .request()
       .input("email", email)
       .query(
-        `SELECT u.*, r.nombre_rol FROM Usuario u JOIN Rol r ON u.id_rol = r.id_rol WHERE u.email = @email`
+        `SELECT u.*, r.nombre_rol FROM Usuario u JOIN Rol r ON u.id_rol = r.id_rol WHERE u.email = @email`,
       );
     if (!result.recordset[0]) return null;
     return new Usuario(result.recordset[0]);
@@ -214,7 +246,7 @@ class MssqlUsuarioRepository extends UsuarioRepository {
     const result = await pool
       .request()
       .query(
-        `SELECT u.*, r.nombre_rol FROM Usuario u JOIN Rol r ON u.id_rol = r.id_rol WHERE u.status = 0`
+        `SELECT u.*, r.nombre_rol FROM Usuario u JOIN Rol r ON u.id_rol = r.id_rol WHERE u.status = 0`,
       );
     return result.recordset.map((row) => new Usuario(row));
   }

@@ -31,13 +31,11 @@ router.post("/", async (req, res) => {
       .status(201)
       .json({ success: true, id: result[0].id_antecedente_paciente });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Error al asociar antecedente a paciente",
-        error: error.message,
-      });
+    res.status(500).json({
+      success: false,
+      message: "Error al asociar antecedente a paciente",
+      error: error.message,
+    });
   }
 });
 
@@ -53,25 +51,19 @@ router.get("/:id_paciente", async (req, res) => {
     const antecedentes = await executeQuery(query, params);
     res.json(antecedentes);
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Error al obtener antecedentes del paciente",
-        error: error.message,
-      });
+    res.status(500).json({
+      success: false,
+      message: "Error al obtener antecedentes del paciente",
+      error: error.message,
+    });
   }
 });
 
 // POST /api/antecedente-paciente/paciente/:id_paciente - Crear asociación usando id_paciente en la URL
 router.post("/paciente/:id_paciente", async (req, res) => {
   try {
-    const {
-      id_antecedente,
-      especificacion,
-      fecha_registro,
-      descripcion,
-    } = req.body || {};
+    const { id_antecedente, especificacion, fecha_registro, descripcion } =
+      req.body || {};
 
     const id_paciente = req.params.id_paciente;
 
@@ -95,13 +87,11 @@ router.post("/paciente/:id_paciente", async (req, res) => {
       .status(201)
       .json({ success: true, id: result[0].id_antecedente_paciente });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Error al asociar antecedente a paciente (url)",
-        error: error.message,
-      });
+    res.status(500).json({
+      success: false,
+      message: "Error al asociar antecedente a paciente (url)",
+      error: error.message,
+    });
   }
 });
 

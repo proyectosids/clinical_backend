@@ -44,7 +44,9 @@ router.get("/", async (req, res) => {
         telefono: u.telefono,
         foto_url: u.foto_url,
         rol: rolMap[u.id_rol] || "",
-  especialidad: especialidadMap[u.id_usuario] ? especialidadMap[u.id_usuario].join(', ') : "",
+        especialidad: especialidadMap[u.id_usuario]
+          ? especialidadMap[u.id_usuario].join(", ")
+          : "",
         status: u.status,
       }));
 

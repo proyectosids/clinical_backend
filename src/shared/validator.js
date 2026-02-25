@@ -107,7 +107,7 @@ const ginecoObstetriciaSchema = Joi.object({
   embarazos: Joi.number().integer().min(0).allow(null),
   partos: Joi.number().integer().min(0).allow(null),
   cesareas: Joi.number().integer().min(0).allow(null),
-  abortos: Joi.number().integer().min(0).allow(null)
+  abortos: Joi.number().integer().min(0).allow(null),
 });
 
 // Validación para Receta

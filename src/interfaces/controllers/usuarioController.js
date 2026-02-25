@@ -19,7 +19,8 @@ class UsuarioController {
         if (typeof password !== "string" || password.length < 6) {
           return res.status(400).json({
             success: false,
-            message: "El campo password debe ser una cadena de al menos 6 caracteres.",
+            message:
+              "El campo password debe ser una cadena de al menos 6 caracteres.",
           });
         }
         const password_hash = await bcrypt.hash(password, 10);
@@ -33,7 +34,7 @@ class UsuarioController {
 
       // Normalize success response for compatibility with tests and frontend:
       // if use case returns a numeric id, return { id: <num> }
-      if (typeof usuarioCreado === 'number') {
+      if (typeof usuarioCreado === "number") {
         return res.status(201).json({ id: usuarioCreado });
       }
       return res.status(201).json({ success: true, data: usuarioCreado });

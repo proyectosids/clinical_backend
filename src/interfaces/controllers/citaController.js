@@ -1,4 +1,4 @@
-const logger = require('../../shared/logger');
+const logger = require("../../shared/logger");
 
 class CitaController {
   constructor(repo) {
@@ -12,8 +12,12 @@ class CitaController {
     } catch (err) {
       logger.error(`Error al crear cita: ${err.message}`);
       // Si el repositorio indica campos requeridos faltantes, devolver 400 para que el cliente lo corrija
-      if (err.message && err.message.startsWith('REQUIRED_FIELDS_MISSING')) {
-        return res.status(400).json({ error: err.message.replace('REQUIRED_FIELDS_MISSING: ', '') });
+      if (err.message && err.message.startsWith("REQUIRED_FIELDS_MISSING")) {
+        return res
+          .status(400)
+          .json({
+            error: err.message.replace("REQUIRED_FIELDS_MISSING: ", ""),
+          });
       }
       res.status(500).json({ error: err.message });
     }

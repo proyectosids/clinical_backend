@@ -25,34 +25,40 @@ app.use("/api/servicios", require("./src/interfaces/routes/servicios"));
 //app.use('/api/clinicas', require('./src/interfaces/routes/clinicas'));
 app.use(
   "/api/signos-vitales",
-  require("./src/interfaces/routes/signosVitales")
+  require("./src/interfaces/routes/signosVitales"),
 );
 app.use("/api/antecedentes", require("./src/interfaces/routes/antecedentes"));
-app.use("/api/antecedente-paciente", require("./src/interfaces/routes/antecedentePaciente"));
-app.use("/api/tipo-antecedentes", require("./src/interfaces/routes/tipoAntecedente"));
+app.use(
+  "/api/antecedente-paciente",
+  require("./src/interfaces/routes/antecedentePaciente"),
+);
+app.use(
+  "/api/tipo-antecedentes",
+  require("./src/interfaces/routes/tipoAntecedente"),
+);
 app.use(
   "/api/exploraciones-fisicas",
-  require("./src/interfaces/routes/exploracionFisica")
+  require("./src/interfaces/routes/exploracionFisica"),
 );
 app.use(
   "/api/gineco-obstetricia",
-  require("./src/interfaces/routes/ginecoObstetricia")
+  require("./src/interfaces/routes/ginecoObstetricia"),
 );
 app.use("/api/recetas", require("./src/interfaces/routes/recetas"));
 app.use(
   "/api/notas-medicas-seguimiento",
-  require("./src/interfaces/routes/notaMedicaSeguimiento")
+  require("./src/interfaces/routes/notaMedicaSeguimiento"),
 );
 app.use("/api/citas", require("./src/interfaces/routes/citas"));
 app.use("/api/estudios", require("./src/interfaces/routes/estudios"));
 
 app.use(
   "/api/especialidades",
-  require("./src/interfaces/routes/especialidades")
+  require("./src/interfaces/routes/especialidades"),
 );
 app.use(
   "/api/usuario-especialidad",
-  require("./src/interfaces/routes/usuarioEspecialidad")
+  require("./src/interfaces/routes/usuarioEspecialidad"),
 );
 app.use("/api/roles", require("./src/interfaces/routes/roles"));
 app.use("/api/ocupaciones", require("./src/interfaces/routes/ocupaciones"));
@@ -60,7 +66,7 @@ app.use("/api/perfiles", require("./src/interfaces/routes/perfiles"));
 app.use("/api/permisos", require("./src/interfaces/routes/permisos"));
 app.use(
   "/api/contacto-mensajes",
-  require("./src/interfaces/routes/contactoMensaje")
+  require("./src/interfaces/routes/contactoMensaje"),
 );
 
 // Ruta 404 no existente
@@ -94,7 +100,7 @@ if (require.main === module) {
         console.log(` Endpoints:`);
         console.log(`   - Pacientes: http://localhost:${PORT}/api/pacientes`);
         console.log(
-          `   - Paciente por ID: http://localhost:${PORT}/api/pacientes/:id`
+          `   - Paciente por ID: http://localhost:${PORT}/api/pacientes/:id`,
         );
         console.log(`   - Usuarios: http://localhost:${PORT}/api/usuarios`);
         console.log(`   - Auth: http://localhost:${PORT}/api/auth`);
@@ -103,10 +109,10 @@ if (require.main === module) {
         console.log(`   - Estudios: http://localhost:${PORT}/api/estudios`);
         console.log(`   - Citas: http://localhost:${PORT}/api/citas`);
         console.log(
-          `   - Antecedentes: http://localhost:${PORT}/api/antecedentes`
+          `   - Antecedentes: http://localhost:${PORT}/api/antecedentes`,
         );
         console.log(
-          `   - Especialidades: http://localhost:${PORT}/api/especialidades`
+          `   - Especialidades: http://localhost:${PORT}/api/especialidades`,
         );
       });
     } catch (error) {

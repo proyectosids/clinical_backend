@@ -16,28 +16,28 @@ INSERT INTO Rol
 VALUES
     ('Administrador', 'Gestiona el sistema completo'),
     ('Recepcionista', 'Gestiona citas, pacientes y agenda'),
-    ('M�dico', 'Accede a expedientes, historia cl�nica y recetas'),
+    ('Medico', 'Accede a expedientes, historia clinica y recetas'),
     ('Enfermera', 'Registra signos vitales y asistencias'),
-    ('Farmac�utico', 'Valida recetas y controla medicamentos'),
-    ('Laboratorista', 'Registra estudios cl�nicos');
+    ('Farmaceutico', 'Valida recetas y controla medicamentos'),
+    ('Laboratorista', 'Registra estudios clinicos');
 
 --Especialidad solo aplica para doctores o personal con especialidad medica
 INSERT INTO Especialidad
     (nombre_esp, cedula_profesional, descripcion)
 VALUES
-    ('Medicina General', '1234567', 'Atenci�n m�dica general'),
-    ('Ginecolog�a', '2345678', 'Salud femenina y obstetricia'),
-    ('Pediatr�a', '3456789', 'Atenci�n a ni�os'),
-    ('Cardiolog�a', '4567890', 'Coraz�n y sistema circulatorio');
+    ('Medicina General', '1234567', 'Atencion medica general'),
+    ('Ginecologia', '2345678', 'Salud femenina y obstetricia'),
+    ('Pediatria', '3456789', 'Atencion a ninos'),
+    ('Cardiologia', '4567890', 'Corazon y sistema circulatorio');
 
 --Enlista las ocupaciones principales
 INSERT INTO Ocupacion
     (id_especialidad, nombre_ocupacion, cedula_profesional, institucion_titulacion, anio_titulacion, descripcion)
 VALUES
-    (1, 'M�dico General', '1234567', 'UNAM', 2015, 'Atiende consultas generales'),
-    (2, 'Ginec�loga', '2345678', 'UANL', 2016, 'Especialista en salud femenina'),
-    (3, 'Pediatra', '3456789', 'IPN', 2018, 'Especialista en ni�os'),
-    (NULL, 'Enfermera General', NULL, 'Tecnol�gico de Enfermer�a', 2019, 'Asiste en procesos cl�nicos');
+    (1, 'Medico General', '1234567', 'UNAM', 2015, 'Atiende consultas generales'),
+    (2, 'Ginecologa', '2345678', 'UANL', 2016, 'Especialista en salud femenina'),
+    (3, 'Pediatra', '3456789', 'IPN', 2018, 'Especialista en ninos'),
+    (NULL, 'Enfermera General', NULL, 'Tecnologico de Enfermeria', 2019, 'Asiste en procesos clinicos');
 
 SELECT *
 FROM Especialidad;
@@ -46,8 +46,8 @@ FROM Especialidad;
 INSERT INTO Estudio
     (nombre_estudio)
 VALUES
-    ('An�lisis de Sangre'),
-    ('Radiograf�a de T�rax'),
+    ('Anlisis de Sangre'),
+    ('Radiografia de Torax'),
     ('Ultrasonido'),
     ('Electrocardiograma'),
     ('Examen General de Orina');
@@ -56,17 +56,17 @@ VALUES
 INSERT INTO Servicio
     (nombre_servicio, descripcion, costo)
 VALUES
-    ('Consulta General', 'Evaluaci�n m�dica general', 250.00),
-    ('Consulta Pedi�trica', 'Atenci�n para menores de edad', 300.00),
-    ('Consulta Ginecol�gica', 'Chequeo ginecol�gico completo', 400.00),
-    ('Laboratorio', 'Toma y an�lisis de muestras', 150.00),
-    ('Estudios de Gabinete', 'Rayos X, ultrasonido y m�s', 500.00);
+    ('Consulta General', 'Evaluacion medica general', 250.00),
+    ('Consulta Pediatrica', 'Atencion para menores de edad', 300.00),
+    ('Consulta Ginecologica', 'Chequeo ginecologico completo', 400.00),
+    ('Laboratorio', 'Toma y analisis de muestras', 150.00),
+    ('Estudios de Gabinete', 'Rayos X, ultrasonido y mas', 500.00);
 
 --Si va haber mas sucursales se puede agregar los nombres distintivos de las demas clinicas
 INSERT INTO Clinica
     (nombre_marca, ubicacion, numero_contacto, email)
 VALUES
-    ('Cl�nica HealthCare', 'Calle Salud 123, CDMX', '5551234567', 'info@sanrafael.mx'),
+    ('Clinica HealthCare', 'Calle Salud 123, CDMX', '5551234567', 'info@sanrafael.mx'),
     ('Consultorio Sanare', 'Av. Bienestar 456, Guadalajara', '3312345678', 'contacto@vidaplena.mx');
 
 -- Identificacion de tipo de antecedente
@@ -74,16 +74,16 @@ INSERT INTO TipoAntecedente
     (nombre_tipo, clave_codigo)
 VALUES
     ('Heredo-Familiares', 'HF01'),
-    ('Personales Patol�gicos', 'PP01'),
-    ('No Patol�gicos', 'NP01'),
-    ('Gineco-Obst�tricos', 'GO01');
+    ('Personales Patologicos', 'PP01'),
+    ('No Patologicos', 'NP01'),
+    ('Gineco-Obstetricos', 'GO01');
 
 --El paciente va ligado con el numero de expedientes
 INSERT INTO Paciente
     (nombre, apellido, curp_paciente, fecha_nacimiento, numero_contacto, direccion, email, contacto_emergencia, edad, genero, estado_civil, ocupacion, tipo_sangre)
 VALUES
-    ('Laura', 'Garc�a', 'GACL900123MDFRRL09', '1990-01-23', '5551231234', 'CDMX, Calle Uno', 'laura.garcia@example.com', 'Ana Garc�a', 34, 'F', 'Soltera', 'Dise�adora', 'A+'),
-    ('Carlos', 'Ram�rez', 'RACR850523HDFRRL05', '1985-05-23', '5543214321', 'CDMX, Calle Dos', 'carlos.ramirez@example.com', 'Pedro Ram�rez', 39, 'M', 'Casado', 'Ingeniero', 'O-');
+    ('Laura', 'Garcia', 'GACL900123MDFRRL09', '1990-01-23', '5551231234', 'CDMX, Calle Uno', 'laura.garcia@example.com', 'Ana Garcia', 34, 'F', 'Soltera', 'Disenadora', 'A+'),
+    ('Carlos', 'Ramirez', 'RACR850523HDFRRL05', '1985-05-23', '5543214321', 'CDMX, Calle Dos', 'carlos.ramirez@example.com', 'Pedro Ramirez', 39, 'M', 'Casado', 'Ingeniero', 'O-');
 
 SELECT *
 FROM Paciente;
@@ -94,9 +94,9 @@ INSERT INTO Usuario
 VALUES
     (1, NULL, 'Admin', 'Sistema', 'ADMS900101HDFXXX01', '1990-01-01', 'Oficina Central', 'admin@clinica.com', '5550000000', '321poi'),
     --admin
-    (3, 2, 'Luis', 'Hern�ndez', 'HERL870415HDFRRL01', '1987-04-15', 'CDMX, Calle Doctor', 'luis.hernandez@clinica.com', '5560010010', '321poi'),
+    (3, 2, 'Luis', 'Hernandez', 'HERL870415HDFRRL01', '1987-04-15', 'CDMX, Calle Doctor', 'luis.hernandez@clinica.com', '5560010010', '321poi'),
     --Medico
-    (4, NULL, 'Mar�a', 'S�nchez', 'SASM910505MDFRRL08', '1991-05-05', 'CDMX, Calle Enfermer�a', 'maria.sanchez@clinica.com', '5570020020', '321poi');
+    (4, NULL, 'Maria', 'Sanchez', 'SASM910505MDFRRL08', '1991-05-05', 'CDMX, Calle Enfermeria', 'maria.sanchez@clinica.com', '5570020020', '321poi');
 --Enfermera
 
 ALTER TABLE HistoriaClinica
@@ -105,7 +105,7 @@ ADD CONSTRAINT DF_HistoriaClinica_FechaApertura DEFAULT GETDATE() FOR fecha_aper
 INSERT INTO Servicio
     (nombre_servicio, descripcion, costo)
 VALUES
-    ('Consulta General', 'Atenci�n m�dica general', 500);
+    ('Consulta General', 'Atencion medica general', 500);
 
 INSERT INTO HorarioDisponible
     (id_usuario, fecha, dia, hora, disponible)
@@ -116,7 +116,7 @@ VALUES
 ALTER TABLE Cita
 ADD id_estado_cita INT;
 
--- Paso B: crear relaci�n for�nea
+-- Paso B: crear relacion foranea
 ALTER TABLE Cita
 ADD CONSTRAINT FK_Cita_EstadoCita
 FOREIGN KEY (id_estado_cita) REFERENCES EstadoCita(id_estado_cita);
@@ -147,7 +147,7 @@ VALUES
 ALTER TABLE Cita
 ADD id_estado_cita INT;
 
--- Agregar la restricci�n de clave for�nea
+-- Agregar la restriccion de clave fornea
 ALTER TABLE Cita
 ADD CONSTRAINT FK_EstadoCita
 FOREIGN KEY (id_estado_cita) REFERENCES EstadoCita(id_estado_cita);
@@ -178,12 +178,12 @@ UPDATE Servicio
 SET url_imagen = 'https://www.freepik.es/foto-gratis/cientificos-tiro-medio-posando-juntos_14309430.htm#fromView=keyword&page=1&position=0&uuid=9a1a4e6c-5536-4741-ac82-698f23a30c7f&query=Medicos'
 WHERE id_servicio = 9;
 
--- Consulta Pedi�trica
+-- Consulta Pediatrica
 UPDATE Servicio
 SET url_imagen = 'https://images.unsplash.com/photo-1512069772995-ec65ed45afd6?auto=format&fit=crop&w=400&q=80'
 WHERE id_servicio = 10;
 
--- Consulta Ginecol�gica
+-- Consulta Ginecologica
 UPDATE Servicio
 SET url_imagen = 'https://images.unsplash.com/photo-1588776814546-ec7e3b2c8b1b?auto=format&fit=crop&w=400&q=80'
 WHERE id_servicio = 11;
@@ -224,17 +224,17 @@ ADD permitido BIT DEFAULT 0 NOT NULL;
 INSERT INTO Permiso
     (nombre_pantalla, descripcion)
 VALUES
-    ('Dashboard', 'Vista general de estad�sticas del sistema (citas, pacientes, ingresos, etc.)'),
-    ('Citas', 'Agenda, creaci�n, modificaci�n y gesti�n de citas m�dicas'),
-    ('Pacientes', 'Registro, b�squeda y actualizaci�n de pacientes'),
-    ('Expedientes clinicos', 'Acceso al historial m�dico y registros cl�nicos'),
-    ('Recetas medicas', 'Creaci�n, firma e impresi�n de recetas para pacientes'),
-    ('Laboratorio/ Estudios clinicos', 'Registro y resultados de an�lisis de laboratorio o im�genes'),
-    ('Cobros y facturacion', 'Facturaci�n, registro de pagos, control de ingresos');
--- Agrega m�s seg�n tus m�dulos
+    ('Dashboard', 'Vista general de estadisticas del sistema (citas, pacientes, ingresos, etc.)'),
+    ('Citas', 'Agenda, creacion, modificacion y gestion de citas medicas'),
+    ('Pacientes', 'Registro, busqueda y actualizacion de pacientes'),
+    ('Expedientes clinicos', 'Acceso al historial medico y registros clinicos'),
+    ('Recetas medicas', 'Creacion, firma e impresioon de recetas para pacientes'),
+    ('Laboratorio/ Estudios clinicos', 'Registro y resultados de analisis de laboratorio o im�genes'),
+    ('Cobros y facturacion', 'Facturacion, registro de pagos, control de ingresos');
+-- Agrega mas segun tus modulos
 
 --llenando la tabla RolPermiso
--- Elimina cualquier asignaci�n previa del rol Administrador (opcional pero recomendado)
+-- Elimina cualquier asignacion previa del rol Administrador (opcional pero recomendado)
 DELETE FROM RolPermiso
 WHERE id_rol = 1;
 -- Inserta todos los permisos disponibles al rol Administrador
@@ -320,11 +320,11 @@ ALTER TABLE NotaMedicaSeguimiento
 ALTER COLUMN id_paciente INT NOT NULL;
 GO
 
--- 5) Crear �ndice (opcional, ayuda en joins/busquedas)
+-- 5) Crear indice (opcional, ayuda en joins/busquedas)
 CREATE INDEX IX_NotaMedicaSeg_IdPaciente ON NotaMedicaSeguimiento(id_paciente);
 GO
 
--- 6) Agregar la restricci�n de clave for�nea
+-- 6) Agregar la restriccion de clave foranea
 ALTER TABLE NotaMedicaSeguimiento
 ADD CONSTRAINT FK_NotaMedica_Paciente FOREIGN KEY (id_paciente) REFERENCES Paciente(id_paciente);
 GO

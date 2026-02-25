@@ -1,5 +1,5 @@
 // Placeholder skipped test to keep Jest happy while the real integration tests are commented.
-test.skip('integracion.api placeholder', () => {});
+test.skip("integracion.api placeholder", () => {});
 
 // jest.mock('../src/infrastructure/repositories/MssqlUsuarioRepository', () => {
 //   return jest.fn().mockImplementation(() => ({

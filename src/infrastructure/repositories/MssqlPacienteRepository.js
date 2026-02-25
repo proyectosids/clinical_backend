@@ -50,7 +50,10 @@ class MssqlPacienteRepository extends PacienteRepository {
       .input("id", id)
       .query("SELECT * FROM Paciente WHERE id_paciente = @id");
     // result may be undefined or not contain recordset in tests/mocks
-    const actual = result && result.recordset && result.recordset[0] ? result.recordset[0] : {};
+    const actual =
+      result && result.recordset && result.recordset[0]
+        ? result.recordset[0]
+        : {};
     // Combinar datos existentes con los nuevos
     const updated = {
       ...actual,
@@ -76,7 +79,7 @@ class MssqlPacienteRepository extends PacienteRepository {
       .input("foto_url", updated.foto_url)
       .input("status", updated.status)
       .query(
-        `UPDATE Paciente SET nombre=@nombre, apellido=@apellido, curp_paciente=@curp_paciente, fecha_nacimiento=@fecha_nacimiento, numero_contacto=@numero_contacto, direccion=@direccion, email=@email, contacto_emergencia=@contacto_emergencia, edad=@edad, genero=@genero, estado_civil=@estado_civil, ocupacion=@ocupacion, tipo_sangre=@tipo_sangre, alergias=@alergias, foto_url=@foto_url, status=@status WHERE id_paciente=@id_paciente`
+        `UPDATE Paciente SET nombre=@nombre, apellido=@apellido, curp_paciente=@curp_paciente, fecha_nacimiento=@fecha_nacimiento, numero_contacto=@numero_contacto, direccion=@direccion, email=@email, contacto_emergencia=@contacto_emergencia, edad=@edad, genero=@genero, estado_civil=@estado_civil, ocupacion=@ocupacion, tipo_sangre=@tipo_sangre, alergias=@alergias, foto_url=@foto_url, status=@status WHERE id_paciente=@id_paciente`,
       );
     return true;
   }

@@ -18,7 +18,7 @@ class NotaMedicaSeguimiento {
   }) {
     this.id_nota_medica_seguimiento = id_nota_medica_seguimiento;
     this.id_cita = id_cita;
-  this.id_paciente = id_paciente;
+    this.id_paciente = id_paciente;
     this.padecimiento_actual = padecimiento_actual;
     this.id_signos_vitales = id_signos_vitales;
     this.id_exploracion_fisica = id_exploracion_fisica;
